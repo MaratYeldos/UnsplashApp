@@ -1,0 +1,22 @@
+PODS:
+  - CollectionViewWaterfallLayout (0.5.0)
+  - SDWebImage (5.14.3):
+    - SDWebImage/Core (= 5.14.3)
+  - SDWebImage/Core (5.14.3)
+
+DEPENDENCIES:
+  - CollectionViewWaterfallLayout
+  - SDWebImage
+
+SPEC REPOS:
+  trunk:
+    - CollectionViewWaterfallLayout
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  CollectionViewWaterfallLayout: 4399ba01be265fff4da1ed1d607130fe009780e4
+  SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
+
+PODFILE CHECKSUM: 92284437c6f708af18e02a6595bd935beb1a0ce3
+
+COCOAPODS: 1.11.3
