@@ -22,10 +22,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     
     var setPhoto: Photo! {
         didSet {
-            let urlRegularImage = setPhoto.urls["regular"]
-            guard let urlRegularImage, let imageURL = URL(string: urlRegularImage) else {
-                return
-            }
+            guard let urlRegularImage = setPhoto.urls?.regular, let imageURL = URL(string: urlRegularImage) else { return }
             photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
             photoImageView.sd_setImage(with: imageURL)
         }

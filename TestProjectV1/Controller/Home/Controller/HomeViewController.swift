@@ -150,7 +150,18 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        coordinator.showDetailScreen(with: photoData[indexPath.item])
+        let current = photoData[indexPath.item]
+
+        NetworkService.shared.makePhotoByIdRequest(with: current.id) { res in
+            switch res {
+            case .success(let model):
+                DispatchQueue.main.async {
+                    self.coordinator.showDetailScreen(with: model)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 }
 

@@ -26,21 +26,21 @@ final class DetailViewController: UIViewController {
     }()
     
     private let publicationDateLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
     
     private let locationLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
     
     private let downloadsNumberLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
         return label
@@ -62,7 +62,6 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        configureScreen(with: model)
         setupRightBarButton()
     }
     
@@ -75,9 +74,11 @@ final class DetailViewController: UIViewController {
         setupUI()
     }
     
-
+    
     @objc
     private func didTapAddToFavorite() {
+        
+        let isLiked = favoriteService.isLiked(with: model.id)
         
         let actionSheet = UIAlertController(title: "Photo by \(model.user?.username ?? "")",
                                             message: "Actions",
@@ -85,8 +86,6 @@ final class DetailViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "Cancel",
                                             style: .cancel,
                                             handler: nil))
-        
-        let isLiked = favoriteService.isLiked(with: model.id)
         
         actionSheet.addAction(UIAlertAction(title: isLiked ? "Remove from favorite" : "Add to favorite",
                                             style: isLiked ? .destructive : .default,
@@ -103,7 +102,7 @@ final class DetailViewController: UIViewController {
                     self.setupRightBarButton()
                 }
             }
-        
+            
         }))
         
         present(actionSheet, animated: true)
@@ -138,10 +137,12 @@ extension DetailViewController {
     
     private func configureScreen(with model: Photo) {
         photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        photoImageView.sd_setImage(with: URL(string: model.urls["full"] ?? ""), completed: nil)
-        authorNameLabel.text = "Author: " + (model.user?.username ?? "") + " - " + (model.user?.name ?? "")
-        publicationDateLabel.text = "Published: " + String(model.createdAt?.prefix(10) ?? "")
-        downloadsNumberLabel.text = "Downloads: " + String(model.downloads ?? 0)
+        photoImageView.sd_setImage(with: URL(string: model.urls?.full ?? ""), completed: nil)
+
+        authorNameLabel.text = "Author: \(model.user?.username ?? "") - \(model.user?.name ?? "")"
+        publicationDateLabel.text = "Published: \(model.createdAt?.prefix(10) ?? "")"
+        downloadsNumberLabel.text = "Downloads: \(model.downloads ?? 0)"
+//        locationLabel.text = "Location: \(model.location?.city ?? ""), \(model.location?.country ?? "")"
         
         if let city = model.location?.city, let country = model.location?.country {
             locationLabel.text = "Location: " + city + ", " + country

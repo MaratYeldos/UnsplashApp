@@ -91,8 +91,4 @@ extension FavoriteViewController : UITableViewDataSource, UITableViewDelegate {
             FavoriteUserDefault.shared.unlike(with: likedPhotos[indexPath.item])
         }
     }
-    
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        if tableView.isEditing ==
-//    }
 }

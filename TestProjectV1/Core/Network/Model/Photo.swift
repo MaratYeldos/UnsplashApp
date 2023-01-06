@@ -11,7 +11,7 @@ struct Photo: Codable {
     let id: String
     let width: Int
     let height: Int
-    let urls: [PhotoURL.RawValue: String]
+    let urls: PhotoURL?
     let user: User?
     let downloads: Int?
     let location: PhotoLocation?

@@ -20,6 +20,7 @@ protocol NetworkServiceProtocol {
     func makeRequest(with url: URL?, type: HTTPMethod, completion: @escaping (URLRequest) -> Void)
     func makeRandomPhotoRequest(completion: @escaping (Result<[Photo], Error>) -> Void)
     func makeSearchRequest(with searchTerm: String, completion: @escaping (Result<SearchResult, Error>) -> Void)
+    func makePhotoByIdRequest(with id: String, completion: @escaping (Result<Photo, Error>) -> Void)
 }
 
 final class NetworkService {
@@ -94,6 +95,13 @@ extension NetworkService: NetworkServiceProtocol {
     func makeSearchRequest(with searchTerm: String, completion: @escaping (Result<SearchResult, Error>) -> Void) {
         let prepareParameters = configureParametersForUrl(with: searchTerm)
         guard let url = configureUrl(with: prepareParameters, path: Constants.searchURLPath) else { return }
+        
+        load(with: url, type: .GET, completion: completion)
+    }
+    
+    func makePhotoByIdRequest(with id: String, completion: @escaping (Result<Photo, Error>) -> Void) {
+        let prepareParameters = configureParametersForUrl(with: id)
+        guard let url = configureUrl(with: prepareParameters, path: Constants.randomPhotosPath + "/\(id)") else { return }
         
         load(with: url, type: .GET, completion: completion)
     }

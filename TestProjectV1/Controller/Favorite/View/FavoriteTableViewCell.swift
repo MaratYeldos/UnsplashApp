@@ -57,7 +57,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     }
     
     func configure(with model: Photo) {
-        let imageUrl = model.urls["thumb"]
+        let imageUrl = model.urls?.thumb 
         photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         photoImageView.sd_setImage(with: URL(string: imageUrl ?? ""))
         authorLabel.text = "Author: \(model.user?.username ?? "") - \(model.user?.name ?? "")"
