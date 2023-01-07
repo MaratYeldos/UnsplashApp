@@ -12,16 +12,15 @@ final class DetailViewController: UIViewController {
     
     //MARK: - Properties
     
-    private var modelId: String
-    private var model: Photo!
+    private var detailInputModel: DetailInputModel!
     private let favoriteService = FavoriteUserDefault.shared
     
     private lazy var detailView = DetailView(frame: self.view.frame)
     
     //MARK: - Lifecycle
     
-    init(with modelId: String) {
-        self.modelId = modelId
+    init(with id: String) {
+        self.detailInputModel = DetailInputModel(modelId: id)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,12 +41,11 @@ final class DetailViewController: UIViewController {
     }
     
     private func getPhotoById() {
-        NetworkService.shared.makePhotoByIdRequest(with: modelId) { res in
+        NetworkService.shared.makePhotoByIdRequest(with: detailInputModel.modelId) { res in
             switch res {
             case .success(let model):
                 DispatchQueue.main.async { [weak self] in
-                    self?.model = model
-                    print("Init model")
+                    self?.detailInputModel.model = model
                     self?.detailView.configureScreen(with: model)
                     self?.setupRightBarButton()
                 }
@@ -60,7 +58,8 @@ final class DetailViewController: UIViewController {
     @objc
     private func didTapAddToFavorite() {
 
-        let isLiked = favoriteService.isLiked(with: modelId)
+        let isLiked = favoriteService.isLiked(with: detailInputModel.modelId)
+        guard let model = detailInputModel.model else { return }
 
         let actionSheet = UIAlertController(title: "Photo by \(model.user?.username ?? "")",
                                             message: "Actions",
@@ -74,12 +73,12 @@ final class DetailViewController: UIViewController {
                                             handler: { [weak self] _ in
             guard let self = self else { return }
             if !isLiked {
-                self.favoriteService.markAsLiked(with: self.model)
+                self.favoriteService.markAsLiked(with: model)
                 DispatchQueue.main.async {
                     self.setupRightBarButton()
                 }
             } else {
-                self.favoriteService.unlike(with: self.model)
+                self.favoriteService.unlike(with: model)
                 DispatchQueue.main.async {
                     self.setupRightBarButton()
                 }
@@ -95,7 +94,7 @@ extension DetailViewController {
         
     private func setupRightBarButton() {
         let button = UIButton(type: .custom)
-        let isLiked = favoriteService.isLiked(with: modelId)
+        let isLiked = favoriteService.isLiked(with: detailInputModel.modelId)
         button.setImage(UIImage(systemName: isLiked ? "star.fill" : "star"), for: .normal)
         button.addTarget(self, action: #selector(didTapAddToFavorite), for: .touchUpInside)
 

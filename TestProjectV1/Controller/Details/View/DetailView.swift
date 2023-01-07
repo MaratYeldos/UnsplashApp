@@ -75,6 +75,7 @@ final class DetailView: UIView {
         
         [authorNameLabel, publicationDateLabel, locationLabel, downloadsNumberLabel].forEach {
             $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
+            $0.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 15).isActive = true
             $0.widthAnchor.constraint(equalToConstant: bounds.size.height - 15).isActive = true
         }
     }
