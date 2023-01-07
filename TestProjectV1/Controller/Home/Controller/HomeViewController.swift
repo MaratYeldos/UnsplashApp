@@ -14,6 +14,8 @@ final class HomeViewController: UIViewController {
     private var cellSizes: [CGSize] = []
     private var timer: Timer?
     
+    var workItem: DispatchWorkItem?
+    
     var photoData: [Photo] = [] {
         didSet {
             for photo in photoData {
@@ -122,11 +124,10 @@ extension HomeViewController {
 extension HomeViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: false, block: { _ in
+        Throttler.shared.throttle(timeInterval: 0.7) { [weak self] in
             guard let searchTerm = searchBar.text else { return }
-            self.getSearchResults(with: searchTerm)
-        })
+            self?.getSearchResults(with: searchTerm)
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -151,17 +152,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let current = photoData[indexPath.item]
-
-        NetworkService.shared.makePhotoByIdRequest(with: current.id) { res in
-            switch res {
-            case .success(let model):
-                DispatchQueue.main.async {
-                    self.coordinator.showDetailScreen(with: model)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-        }
+        coordinator.showDetailScreen(with: current.id)
     }
 }
 

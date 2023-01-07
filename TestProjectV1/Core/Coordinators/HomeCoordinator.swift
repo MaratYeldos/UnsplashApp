@@ -19,8 +19,8 @@ final class HomeCoordinator: MainCoordinator {
         self.mainCoordinator = mainCoordinator
     }
 
-    func showDetailScreen(with model: Photo) {
-        let vc = DetailViewController(with: model)
+    func showDetailScreen(with modelId: String) {
+        let vc = DetailViewController(with: modelId)
         vc.view.backgroundColor = .white
         self.currentNavigationController.pushViewController(vc, animated: true)
     }

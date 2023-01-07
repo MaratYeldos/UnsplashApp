@@ -83,7 +83,7 @@ extension FavoriteViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.coordinator?.showDetailScreen(with: likedPhotos[indexPath.item])
+        self.coordinator?.showDetailScreen(with: likedPhotos[indexPath.item].id)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
