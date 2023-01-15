@@ -17,6 +17,9 @@
 		AF041CDE29696AFB009D4FCF /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF041CDD29696AFB009D4FCF /* Throttler.swift */; };
 		AF041CE129699847009D4FCF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF041CE029699847009D4FCF /* HomeViewModel.swift */; };
 		AF041CE42969D4ED009D4FCF /* DetailInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF041CE32969D4ED009D4FCF /* DetailInputModel.swift */; };
+		AF041CE6296FD955009D4FCF /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF041CE5296FD955009D4FCF /* API.swift */; };
+		AF041CE9296FDB19009D4FCF /* URLFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF041CE8296FDB19009D4FCF /* URLFactory.swift */; };
+		AF041CED296FE35C009D4FCF /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF041CEC296FE35B009D4FCF /* NetworkServiceProtocol.swift */; };
 		AFA7AB042965D54A00E91317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB032965D54A00E91317 /* AppDelegate.swift */; };
 		AFA7AB062965D54A00E91317 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB052965D54A00E91317 /* SceneDelegate.swift */; };
 		AFA7AB082965D54A00E91317 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB072965D54A00E91317 /* HomeViewController.swift */; };
@@ -47,6 +50,9 @@
 		AF041CDD29696AFB009D4FCF /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		AF041CE029699847009D4FCF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		AF041CE32969D4ED009D4FCF /* DetailInputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInputModel.swift; sourceTree = "<group>"; };
+		AF041CE5296FD955009D4FCF /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		AF041CE8296FDB19009D4FCF /* URLFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFactory.swift; sourceTree = "<group>"; };
+		AF041CEC296FE35B009D4FCF /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		AFA7AB002965D54A00E91317 /* TestProjectV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestProjectV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA7AB032965D54A00E91317 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFA7AB052965D54A00E91317 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -250,8 +256,11 @@
 		AFA7AB2C2966A48A00E91317 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				AFA7AB172965DA0C00E91317 /* NetworkService.swift */,
 				AFA7AB272965EAA800E91317 /* Model */,
+				AF041CE5296FD955009D4FCF /* API.swift */,
+				AF041CE8296FDB19009D4FCF /* URLFactory.swift */,
+				AF041CEC296FE35B009D4FCF /* NetworkServiceProtocol.swift */,
+				AFA7AB172965DA0C00E91317 /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -278,8 +287,8 @@
 			isa = PBXGroup;
 			children = (
 				AF041CE22969D4DB009D4FCF /* Model */,
-				AF041CD929694A19009D4FCF /* Controller */,
 				AF041CD829694A11009D4FCF /* View */,
+				AF041CD929694A19009D4FCF /* Controller */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -287,8 +296,8 @@
 		AFA7AB332966D41400E91317 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
-				AF041CCF29670FCB009D4FCF /* Controller */,
 				AFA7AB3C2966D93B00E91317 /* View */,
+				AF041CCF29670FCB009D4FCF /* Controller */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -441,11 +450,14 @@
 				AF041CDB29694A28009D4FCF /* DetailView.swift in Sources */,
 				AF041CD72967136C009D4FCF /* PhotoURL.swift in Sources */,
 				AF041CCA2966F44A009D4FCF /* FavoriteUserDefault.swift in Sources */,
+				AF041CE9296FDB19009D4FCF /* URLFactory.swift in Sources */,
 				AFA7AB242965E49C00E91317 /* TableView+Ext.swift in Sources */,
 				AF041CCC2966F62E009D4FCF /* UserDefault+Ext.swift in Sources */,
 				AFA7AB182965DA0C00E91317 /* NetworkService.swift in Sources */,
+				AF041CE6296FD955009D4FCF /* API.swift in Sources */,
 				AFA7AB262965E4AA00E91317 /* CollectionView+Ext.swift in Sources */,
 				AFA7AB372966D45400E91317 /* MainCoordinator.swift in Sources */,
+				AF041CED296FE35C009D4FCF /* NetworkServiceProtocol.swift in Sources */,
 				AFA7AB062965D54A00E91317 /* SceneDelegate.swift in Sources */,
 				AFA7AB312966BD1D00E91317 /* HomeCollectionViewCell.swift in Sources */,
 				AF041CD52967135E009D4FCF /* User.swift in Sources */,

@@ -23,5 +23,13 @@ struct Photo: Codable {
     }
 }
 
-
+struct PhotoURLParameters {
+    var page: String?
+    var query: String
+    
+    init(page: String = "1") {
+        self.page = page
+        self.query = ""
+    }
+}
 

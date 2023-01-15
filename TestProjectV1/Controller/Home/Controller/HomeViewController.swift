@@ -11,9 +11,12 @@ import CollectionViewWaterfallLayout
 final class HomeViewController: UIViewController {
     
     var coordinator: HomeCoordinator!
+    private let unsplashNetworkService: NetworkServiceProtocol
+    private var params: PhotoURLParameters
+    private var page: Int = 1
+   
     private var cellSizes: [CGSize] = []
     private var timer: Timer?
-    
     var workItem: DispatchWorkItem?
     
     var photoData: [Photo] = [] {
@@ -48,8 +51,11 @@ final class HomeViewController: UIViewController {
     
     //MARK: - Lifecycle
     
-    init() {
+    init(unsplashNetworkService: NetworkServiceProtocol) {
+        self.unsplashNetworkService = unsplashNetworkService
+        self.params = PhotoURLParameters(page: String(self.page))
         super.init(nibName: nil, bundle: nil)
+       
         tabBarItem = UITabBarItem(title: "Main",
                                   image: UIImage(systemName: "house"),
                                   selectedImage: nil)
@@ -90,27 +96,30 @@ extension HomeViewController {
     //MARK: - FetchAPI
     
     private func getRandomData() {
-        NetworkService.shared.makeRandomPhotoRequest { result in
+        unsplashNetworkService.fetchPhotos(with: params) { [weak self] result in
+            guard let self else {return}
             switch result {
-            case .success(let res):
-                DispatchQueue.main.async { [weak self] in
-                    self?.photoData = res
-                    self?.collectionView.reloadData()
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self.photoData = response
+                    self.collectionView.reloadData()
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
     
     func getSearchResults(with searchTerm: String) {
         photoData.removeAll()
-        NetworkService.shared.makeSearchRequest(with: searchTerm) { [weak self] result in
+        params.query = searchTerm
+        unsplashNetworkService.fetchSearchPhotos(with: params) { [weak self] result in
+            guard let self else {return}
             switch result {
-            case .success(let searchResults):
+            case .success(let response):
                 DispatchQueue.main.async {
-                    self?.photoData = searchResults.results
-                    self?.collectionView.reloadData()
+                    self.photoData = response.results
+                    self.collectionView.reloadData()
                 }
             case .failure(let error):
                 print(error.localizedDescription)

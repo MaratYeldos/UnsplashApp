@@ -14,13 +14,15 @@ final class DetailViewController: UIViewController {
     
     private var detailInputModel: DetailInputModel!
     private let favoriteService = FavoriteUserDefault.shared
+    private let unsplashNetworkService: NetworkServiceProtocol
     
     private lazy var detailView = DetailView(frame: self.view.frame)
     
     //MARK: - Lifecycle
     
-    init(with id: String) {
+    init(with id: String, unsplashNetworkService: NetworkServiceProtocol) {
         self.detailInputModel = DetailInputModel(modelId: id)
+        self.unsplashNetworkService = unsplashNetworkService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,16 +39,15 @@ final class DetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getPhotoById()
-        print("viewWillAppear")
     }
     
     private func getPhotoById() {
-        NetworkService.shared.makePhotoByIdRequest(with: detailInputModel.modelId) { res in
-            switch res {
-            case .success(let model):
-                DispatchQueue.main.async { [weak self] in
-                    self?.detailInputModel.model = model
-                    self?.detailView.configureScreen(with: model)
+        unsplashNetworkService.fetchPhoto(with: detailInputModel.modelId) { [weak self] result in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self?.detailInputModel.model = response
+                    self?.detailView.configureScreen(with: response)
                     self?.setupRightBarButton()
                 }
             case .failure(let err):
