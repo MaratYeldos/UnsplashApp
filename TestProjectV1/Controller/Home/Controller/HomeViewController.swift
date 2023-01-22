@@ -10,22 +10,9 @@ import CollectionViewWaterfallLayout
 import SDWebImage
 
 final class HomeViewController: UIViewController {
-    
-    var coordinator: HomeCoordinator!
-    private let unsplashNetworkService: NetworkServiceProtocol
-    private var params: PhotoURLParameters
-    private var page: Int = 1
+
+    var viewModel: HomeViewModel
     private var typingThrottler: TypingThrottler?
-    private var cellSizes: [CGSize] = []
-    
-    var photoData: [Photo] = [] {
-        didSet {
-            SDImageCache.shared.clearMemory()
-            SDImageCache.shared.clearDisk()
-            cellSizes.removeAll()
-            cellSizes = photoData.map { CGSize(width: $0.width, height: $0.height) }
-        }
-    }
     
     //MARK: - Properties
     
@@ -51,9 +38,8 @@ final class HomeViewController: UIViewController {
     
     //MARK: - Lifecycle
     
-    init(unsplashNetworkService: NetworkServiceProtocol) {
-        self.unsplashNetworkService = unsplashNetworkService
-        self.params = PhotoURLParameters(page: String(self.page))
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
         tabBarItem = UITabBarItem(title: "Main",
@@ -72,10 +58,19 @@ final class HomeViewController: UIViewController {
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         
-        getRandomData()
+        viewModel.getRandomData()
 
         typingThrottler = TypingThrottler { [weak self] text in
-            self?.getSearchResults(with: text)
+            self?.viewModel.getSearchResults(with: text)
+        }
+        
+        viewModel.onDataChanged = { [weak self] in
+            guard let self = self else { return }
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
 }
@@ -93,40 +88,6 @@ extension HomeViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    
-    //MARK: - FetchAPI
-    
-    private func getRandomData() {
-        unsplashNetworkService.fetchPhotos(with: params) { [weak self] result in
-            guard let self else {return}
-            switch result {
-            case .success(let response):
-                DispatchQueue.main.async {
-                    self.photoData = response
-                    self.collectionView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func getSearchResults(with searchTerm: String) {
-        photoData.removeAll()
-        params.query = searchTerm
-        unsplashNetworkService.fetchSearchPhotos(with: params) { [weak self] result in
-            guard let self else {return}
-            switch result {
-            case .success(let response):
-                DispatchQueue.main.async {
-                    self.photoData = response.results
-                    self.collectionView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
 }
 
 //MARK: - Search
@@ -138,7 +99,7 @@ extension HomeViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        getRandomData()
+        viewModel.getRandomData()
     }
 }
 
@@ -147,26 +108,26 @@ extension HomeViewController: UISearchBarDelegate {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoData.count
+        return viewModel.photoData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: HomeCollectionViewCell = collectionView.dequeueCell(for: indexPath)
-        let photo = photoData[indexPath.item]
+        let photo = viewModel.photoData[indexPath.item]
         cell.setPhoto = photo
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let current = photoData[indexPath.item]
-        coordinator.showDetailScreen(with: current.id)
+        let current = viewModel.photoData[indexPath.item]
+        viewModel.navigationToDetails(with: current.id)
     }
 }
 
 extension HomeViewController: CollectionViewWaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return cellSizes[indexPath.item]
+        return viewModel.cellSizes[indexPath.item]
     }
 }
 

@@ -16,8 +16,9 @@ class MainCoordinator {
     }
     
     func start(in window: UIWindow) {
-        let homeVC = HomeViewController(unsplashNetworkService: NetworkService())
-        homeVC.coordinator = HomeCoordinator(mainCoordinator: self)
+        let homeViewModel = HomeViewModel(unsplashNetworkService: NetworkService())
+        let homeVC = HomeViewController(viewModel: homeViewModel)
+        homeViewModel.coordinator = HomeCoordinator(mainCoordinator: self)
         
         let favoriteVC = FavoriteViewController()
         favoriteVC.coordinator = FavoriteCoordinator(mainCoordinator: self)
