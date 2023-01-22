@@ -20,8 +20,9 @@ class MainCoordinator {
         let homeVC = HomeViewController(viewModel: homeViewModel)
         homeViewModel.coordinator = HomeCoordinator(mainCoordinator: self)
         
-        let favoriteVC = FavoriteViewController()
-        favoriteVC.coordinator = FavoriteCoordinator(mainCoordinator: self)
+        let favoriteViewModel = FavoriteViewModel()
+        let favoriteVC = FavoriteViewController(viewModel: favoriteViewModel)
+        favoriteViewModel.coordinator = FavoriteCoordinator(mainCoordinator: self)
         
         let controllers = [
             homeVC,

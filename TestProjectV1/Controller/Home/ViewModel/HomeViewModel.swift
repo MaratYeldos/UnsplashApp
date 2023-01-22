@@ -60,7 +60,7 @@ final class HomeViewModel {
         }
     }
     
-    func navigationToDetails(with id: String) {
+    func coordinateToDetail(with id: String) {
         coordinator.showDetailScreen(with: id)
     }
 }

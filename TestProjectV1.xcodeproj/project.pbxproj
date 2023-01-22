@@ -38,6 +38,7 @@
 		AFA7AB3B2966D4E300E91317 /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB3A2966D4E300E91317 /* FavoriteCoordinator.swift */; };
 		AFA7AB3E2966D95600E91317 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB3D2966D95600E91317 /* FavoriteTableViewCell.swift */; };
 		AFBDF266297D59E800DC01EA /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDF265297D59E800DC01EA /* DetailViewModel.swift */; };
+		AFBDF269297D734E00DC01EA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDF268297D734E00DC01EA /* FavoriteViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		AFA7AB3A2966D4E300E91317 /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
 		AFA7AB3D2966D95600E91317 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		AFBDF265297D59E800DC01EA /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		AFBDF268297D734E00DC01EA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		B04DBF0DA1E6BC61DBCDE2DC /* Pods-TestProjectV1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProjectV1.debug.xcconfig"; path = "Target Support Files/Pods-TestProjectV1/Pods-TestProjectV1.debug.xcconfig"; sourceTree = "<group>"; };
 		CDCD1829645BBC210E2C1DA9 /* Pods_TestProjectV1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestProjectV1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -299,9 +301,9 @@
 		AFA7AB332966D41400E91317 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
-				AFBDF267297D631D00DC01EA /* ViewModel */,
 				AFA7AB3C2966D93B00E91317 /* View */,
 				AF041CCF29670FCB009D4FCF /* Controller */,
+				AFBDF267297D631D00DC01EA /* ViewModel */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -335,6 +337,7 @@
 		AFBDF267297D631D00DC01EA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				AFBDF268297D734E00DC01EA /* FavoriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				AFBDF266297D59E800DC01EA /* DetailViewModel.swift in Sources */,
 				AF041CED296FE35C009D4FCF /* NetworkServiceProtocol.swift in Sources */,
 				AFA7AB062965D54A00E91317 /* SceneDelegate.swift in Sources */,
+				AFBDF269297D734E00DC01EA /* FavoriteViewModel.swift in Sources */,
 				AFA7AB312966BD1D00E91317 /* HomeCollectionViewCell.swift in Sources */,
 				AF041CD52967135E009D4FCF /* User.swift in Sources */,
 			);

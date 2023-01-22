@@ -120,7 +120,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let current = viewModel.photoData[indexPath.item]
-        viewModel.navigationToDetails(with: current.id)
+        viewModel.coordinateToDetail(with: current.id)
     }
 }
 
