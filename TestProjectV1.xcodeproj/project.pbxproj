@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,7 @@
 		AFA7AB392966D4D900E91317 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB382966D4D900E91317 /* HomeCoordinator.swift */; };
 		AFA7AB3B2966D4E300E91317 /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB3A2966D4E300E91317 /* FavoriteCoordinator.swift */; };
 		AFA7AB3E2966D95600E91317 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB3D2966D95600E91317 /* FavoriteTableViewCell.swift */; };
+		AFBDF266297D59E800DC01EA /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDF265297D59E800DC01EA /* DetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		AFA7AB382966D4D900E91317 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		AFA7AB3A2966D4E300E91317 /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
 		AFA7AB3D2966D95600E91317 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		AFBDF265297D59E800DC01EA /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		B04DBF0DA1E6BC61DBCDE2DC /* Pods-TestProjectV1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProjectV1.debug.xcconfig"; path = "Target Support Files/Pods-TestProjectV1/Pods-TestProjectV1.debug.xcconfig"; sourceTree = "<group>"; };
 		CDCD1829645BBC210E2C1DA9 /* Pods_TestProjectV1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestProjectV1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -289,6 +291,7 @@
 				AF041CE22969D4DB009D4FCF /* Model */,
 				AF041CD829694A11009D4FCF /* View */,
 				AF041CD929694A19009D4FCF /* Controller */,
+				AFBDF264297D59D900DC01EA /* ViewModel */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 		AFA7AB332966D41400E91317 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
+				AFBDF267297D631D00DC01EA /* ViewModel */,
 				AFA7AB3C2966D93B00E91317 /* View */,
 				AF041CCF29670FCB009D4FCF /* Controller */,
 			);
@@ -318,6 +322,21 @@
 				AFA7AB3D2966D95600E91317 /* FavoriteTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AFBDF264297D59D900DC01EA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AFBDF265297D59E800DC01EA /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AFBDF267297D631D00DC01EA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,7 +377,7 @@
 				};
 			};
 			buildConfigurationList = AFA7AAFB2965D54A00E91317 /* Build configuration list for PBXProject "TestProjectV1" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -457,6 +476,7 @@
 				AF041CE6296FD955009D4FCF /* API.swift in Sources */,
 				AFA7AB262965E4AA00E91317 /* CollectionView+Ext.swift in Sources */,
 				AFA7AB372966D45400E91317 /* MainCoordinator.swift in Sources */,
+				AFBDF266297D59E800DC01EA /* DetailViewModel.swift in Sources */,
 				AF041CED296FE35C009D4FCF /* NetworkServiceProtocol.swift in Sources */,
 				AFA7AB062965D54A00E91317 /* SceneDelegate.swift in Sources */,
 				AFA7AB312966BD1D00E91317 /* HomeCollectionViewCell.swift in Sources */,
@@ -607,7 +627,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -615,9 +635,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yeldosmarat.TestProjectV1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -636,7 +659,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -644,9 +667,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yeldosmarat.TestProjectV1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

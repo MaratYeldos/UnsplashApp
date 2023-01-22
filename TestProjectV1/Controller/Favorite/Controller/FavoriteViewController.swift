@@ -49,7 +49,9 @@ final class FavoriteViewController: UIViewController {
     @objc
     private func likesChanged() {
         likedPhotos = FavoriteUserDefault.shared.liked
-        tableview.reloadData()
+        DispatchQueue.main.async {
+            self.tableview.reloadData()            
+        }
     }
     
     private func setupUI() {

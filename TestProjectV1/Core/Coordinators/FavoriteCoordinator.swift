@@ -20,7 +20,9 @@ final class FavoriteCoordinator: MainCoordinator {
     }
     
     func showDetailScreen(with modelId: String) {
-        let vc = DetailViewController(with: modelId, unsplashNetworkService: NetworkService())
+        let vc = DetailViewController(with: modelId,
+                                      unsplashNetworkService: NetworkService(),
+                                      favoriteService: FavoriteUserDefault())
         vc.view.backgroundColor = .white
         self.currentNavigationController.pushViewController(vc, animated: true)
     }

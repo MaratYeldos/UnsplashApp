@@ -11,18 +11,15 @@ import SDWebImage
 final class DetailViewController: UIViewController {
     
     //MARK: - Properties
-    
-    private var detailInputModel: DetailInputModel!
-    private let favoriteService = FavoriteUserDefault.shared
-    private let unsplashNetworkService: NetworkServiceProtocol
+
+    private let viewModel: DetailViewModel
     
     private lazy var detailView = DetailView(frame: self.view.frame)
     
     //MARK: - Lifecycle
     
-    init(with id: String, unsplashNetworkService: NetworkServiceProtocol) {
-        self.detailInputModel = DetailInputModel(modelId: id)
-        self.unsplashNetworkService = unsplashNetworkService
+    init(with id: String, unsplashNetworkService: NetworkServiceProtocol, favoriteService: FavoriteUserDefault) {
+        viewModel = DetailViewModel(id: id, unsplashNetworkService: unsplashNetworkService, favoriteService: favoriteService)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,15 +40,11 @@ final class DetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getPhotoById()
-    }
-    
-    private func getPhotoById() {
-        unsplashNetworkService.fetchPhoto(with: detailInputModel.modelId) { [weak self] result in
+        
+        viewModel.fetchPhoto { [weak self] result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-                    self?.detailInputModel.model = response
                     self?.detailView.configureScreen(with: response)
                     self?.setupRightBarButton()
                 }
@@ -64,27 +57,24 @@ final class DetailViewController: UIViewController {
     @objc
     private func didTapAddToFavorite() {
 
-        let isLiked = favoriteService.isLiked(with: detailInputModel.modelId)
-        guard let model = detailInputModel.model else { return }
-
-        let actionSheet = UIAlertController(title: "Photo by \(model.user?.username ?? "")",
+        let actionSheet = UIAlertController(title: "Photo by \(viewModel.model?.user?.username ?? "")",
                                             message: "Actions",
                                             preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel",
                                             style: .cancel,
                                             handler: nil))
 
-        actionSheet.addAction(UIAlertAction(title: isLiked ? "Remove from favorite" : "Add to favorite",
-                                            style: isLiked ? .destructive : .default,
+        actionSheet.addAction(UIAlertAction(title: viewModel.isLiked ? "Remove from favorite" : "Add to favorite",
+                                            style: viewModel.isLiked ? .destructive : .default,
                                             handler: { [weak self] _ in
             guard let self = self else { return }
-            if !isLiked {
-                self.favoriteService.markAsLiked(with: model)
+            if !self.viewModel.isLiked {
+                self.viewModel.addToFavorite()
                 DispatchQueue.main.async {
                     self.setupRightBarButton()
                 }
             } else {
-                self.favoriteService.unlike(with: model)
+                self.viewModel.removeFromFavorite()
                 DispatchQueue.main.async {
                     self.setupRightBarButton()
                 }
@@ -100,7 +90,7 @@ extension DetailViewController {
         
     private func setupRightBarButton() {
         let button = UIButton(type: .custom)
-        let isLiked = favoriteService.isLiked(with: detailInputModel.modelId)
+        let isLiked = viewModel.isLiked 
         button.setImage(UIImage(systemName: isLiked ? "star.fill" : "star"), for: .normal)
         button.addTarget(self, action: #selector(didTapAddToFavorite), for: .touchUpInside)
 
