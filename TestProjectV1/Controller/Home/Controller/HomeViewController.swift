@@ -7,6 +7,7 @@
 
 import UIKit
 import CollectionViewWaterfallLayout
+import SDWebImage
 
 final class HomeViewController: UIViewController {
     
@@ -14,15 +15,15 @@ final class HomeViewController: UIViewController {
     private let unsplashNetworkService: NetworkServiceProtocol
     private var params: PhotoURLParameters
     private var page: Int = 1
-   
-    private var cellSizes: [CGSize] = []
     private var typingThrottler: TypingThrottler?
+    private var cellSizes: [CGSize] = []
     
     var photoData: [Photo] = [] {
         didSet {
-            for photo in photoData {
-                cellSizes.append(CGSize(width: photo.width, height: photo.height))
-            }
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk()
+            cellSizes.removeAll()
+            cellSizes = photoData.map { CGSize(width: $0.width, height: $0.height) }
         }
     }
     
@@ -71,15 +72,11 @@ final class HomeViewController: UIViewController {
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         
+        getRandomData()
+
         typingThrottler = TypingThrottler { [weak self] text in
-            self?.photoData.removeAll()
             self?.getSearchResults(with: text)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        getRandomData()
     }
 }
 

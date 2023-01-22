@@ -30,6 +30,11 @@ final class DetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

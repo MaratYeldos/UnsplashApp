@@ -59,7 +59,7 @@ final class FavoriteUserDefault: FavoriteUserDefaultProtocol {
             try UserDefaults.standard.setObject(liked, forKey: Self.key)
             NotificationCenter.default.post(name: Self.notificationKey, object: nil)
         } catch {
-            print("[DEBUG]: Cant mark as liked")
+            print("[DEBUG]: Cant mark as unlike")
         }
     }
 }
