@@ -27,9 +27,9 @@ struct PhotoURLParameters {
     var page: String?
     var query: String
     
-    init(page: String = "1") {
+    init(page: String = "1", query: String = "") {
         self.page = page
-        self.query = ""
+        self.query = query
     }
 }
 

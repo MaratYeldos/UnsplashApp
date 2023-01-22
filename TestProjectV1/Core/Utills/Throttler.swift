@@ -7,17 +7,30 @@
 
 import UIKit
 
-final class Throttler {
-    static let shared = Throttler()
-    private var task: DispatchWorkItem?
-
-    func throttle(timeInterval: TimeInterval, block: @escaping () -> Void) {
-        task?.cancel()
-
-        let task = DispatchWorkItem { block() }
-
-        self.task = task
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + timeInterval, execute: task)
+final class TypingThrottler {
+    
+    typealias Handler = (String) -> Void
+    
+    let interval: TimeInterval
+    
+    let handler: Handler
+    
+    init(interval: TimeInterval = 0.6, handler: @escaping Handler) {
+        self.interval = interval
+        self.handler = handler
+    }
+    
+    private var workItem: DispatchWorkItem?
+    
+    func handleTyping(with text: String) {
+        workItem?.cancel()
+        
+        workItem = DispatchWorkItem { [weak self] in
+            self?.handler(text)
+        }
+        
+        if let workItem = self.workItem {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + interval, execute: workItem)
+        }
     }
 }

@@ -16,8 +16,7 @@ final class HomeViewController: UIViewController {
     private var page: Int = 1
    
     private var cellSizes: [CGSize] = []
-    private var timer: Timer?
-    var workItem: DispatchWorkItem?
+    private var typingThrottler: TypingThrottler?
     
     var photoData: [Photo] = [] {
         didSet {
@@ -55,7 +54,7 @@ final class HomeViewController: UIViewController {
         self.unsplashNetworkService = unsplashNetworkService
         self.params = PhotoURLParameters(page: String(self.page))
         super.init(nibName: nil, bundle: nil)
-       
+        
         tabBarItem = UITabBarItem(title: "Main",
                                   image: UIImage(systemName: "house"),
                                   selectedImage: nil)
@@ -71,6 +70,11 @@ final class HomeViewController: UIViewController {
         collectionView.register(HomeCollectionViewCell.self)
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
+        
+        typingThrottler = TypingThrottler { [weak self] text in
+            self?.photoData.removeAll()
+            self?.getSearchResults(with: text)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,10 +137,7 @@ extension HomeViewController {
 extension HomeViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        Throttler.shared.throttle(timeInterval: 0.7) { [weak self] in
-            guard let searchTerm = searchBar.text else { return }
-            self?.getSearchResults(with: searchTerm)
-        }
+        typingThrottler?.handleTyping(with: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
