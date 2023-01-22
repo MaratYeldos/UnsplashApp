@@ -8,13 +8,13 @@
 import UIKit
 import SDWebImage
 
-final class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController, HasCustomView {
+    
+    typealias CustomView = DetailView
     
     //MARK: - Properties
 
     private let viewModel: DetailViewModel
-    
-    private lazy var detailView = DetailView(frame: self.view.frame)
     
     //MARK: - Lifecycle
     
@@ -32,10 +32,12 @@ final class DetailViewController: UIViewController {
         SDImageCache.shared.clearDisk()
     }
     
+    override func loadView() {
+        view = DetailView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(detailView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +47,7 @@ final class DetailViewController: UIViewController {
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-                    self?.detailView.configureScreen(with: response)
+                    self?.customView.configureScreen(with: response)
                     self?.setupRightBarButton()
                 }
             case .failure(let err):

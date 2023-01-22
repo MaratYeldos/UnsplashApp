@@ -39,6 +39,7 @@
 		AFA7AB3E2966D95600E91317 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7AB3D2966D95600E91317 /* FavoriteTableViewCell.swift */; };
 		AFBDF266297D59E800DC01EA /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDF265297D59E800DC01EA /* DetailViewModel.swift */; };
 		AFBDF269297D734E00DC01EA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDF268297D734E00DC01EA /* FavoriteViewModel.swift */; };
+		AFBDF26B297D956500DC01EA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDF26A297D956500DC01EA /* UIView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		AFA7AB3D2966D95600E91317 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		AFBDF265297D59E800DC01EA /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		AFBDF268297D734E00DC01EA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		AFBDF26A297D956500DC01EA /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		B04DBF0DA1E6BC61DBCDE2DC /* Pods-TestProjectV1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProjectV1.debug.xcconfig"; path = "Target Support Files/Pods-TestProjectV1/Pods-TestProjectV1.debug.xcconfig"; sourceTree = "<group>"; };
 		CDCD1829645BBC210E2C1DA9 /* Pods_TestProjectV1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestProjectV1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -229,6 +231,7 @@
 				AFA7AB232965E49C00E91317 /* TableView+Ext.swift */,
 				AFA7AB252965E4AA00E91317 /* CollectionView+Ext.swift */,
 				AF041CCB2966F62E009D4FCF /* UserDefault+Ext.swift */,
+				AFBDF26A297D956500DC01EA /* UIView+Ext.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 			files = (
 				AFA7AB2B2965EACD00E91317 /* SearchResult.swift in Sources */,
 				AF041CD329671356009D4FCF /* PhotoLocation.swift in Sources */,
+				AFBDF26B297D956500DC01EA /* UIView+Ext.swift in Sources */,
 				AF041CDE29696AFB009D4FCF /* Throttler.swift in Sources */,
 				AFA7AB082965D54A00E91317 /* HomeViewController.swift in Sources */,
 				AFA7AB042965D54A00E91317 /* AppDelegate.swift in Sources */,
